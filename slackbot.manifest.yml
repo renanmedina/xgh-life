@@ -1,0 +1,26 @@
+display_information:
+  name: XGH
+  description: Fastest software development
+  background_color: "#8f6140"
+  long_description: Unleash the power of wisdom with the Extreme Go Horse Slack bot! Request profound axioms on-the-fly, elevating your conversations to new heights. Harness enlightenment effortlessly!
+features:
+  bot_user:
+    display_name: XGH
+    always_online: false
+  slash_commands:
+    - command: /xgh
+      url: https://xgh-bot.fly.dev/slack/axioms
+      description: Quote an XGH axiom
+      usage_hint: "[axiom number] [random]"
+      should_escape: false
+oauth_config:
+  redirect_urls:
+    - https://xgh-bot.fly.dev/slack/oauth
+    - https://xgh.renanmedina.online/slack/oauth
+  scopes:
+    bot:
+      - commands
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

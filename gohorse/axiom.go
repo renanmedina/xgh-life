@@ -1,0 +1,15 @@
+package gohorse
+
+import (
+	"fmt"
+)
+
+type Axiom struct {
+	Number      uint   `json:"number"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+}
+
+func (axiom Axiom) Url() string {
+	return fmt.Sprintf("https://gohorse.com.br/extreme-go-horse-xgh/#%d", axiom.Number)
+}
