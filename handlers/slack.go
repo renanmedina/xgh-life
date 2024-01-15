@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-bot/gohorse"
+	"github.com/renanmedina/xgh-bot/slack"
 )
 
 type CommandRequest struct {
@@ -45,7 +46,7 @@ func SlackBotHandler(c *gin.Context) {
 
 	if request.isRandomAxiomType() {
 		axiom := service.PickOneRandom()
-		c.JSON(http.StatusOK, axiom)
+		c.JSON(http.StatusOK, slack.NewSlackSimpleResponse(slack.IN_CHANNEL, axiom.ToQuote()))
 		return
 	}
 
@@ -63,5 +64,5 @@ func SlackBotHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, axiom)
+	c.JSON(http.StatusOK, slack.NewSlackSimpleResponse(slack.IN_CHANNEL, axiom.ToQuote()))
 }
