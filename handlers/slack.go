@@ -11,8 +11,8 @@ import (
 )
 
 type CommandRequest struct {
-	CommandType   string `json:"command" binding:"required"`
-	RequestedType string `json:"text" binding:"required"`
+	CommandType   string `json:"command" form:"command" binding:"required"`
+	RequestedType string `json:"text" form:"text" binding:"required"`
 }
 
 func (c CommandRequest) isXGH() bool {
@@ -34,7 +34,7 @@ func (c CommandRequest) axiomNumber() (int, error) {
 
 func SlackBotHandler(c *gin.Context) {
 	var request CommandRequest
-	c.BindJSON(&request)
+	c.Bind(&request)
 
 	if !request.isXGH() {
 		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("Command %s not available", request.CommandType)})

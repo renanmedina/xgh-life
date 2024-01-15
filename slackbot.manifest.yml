@@ -9,13 +9,12 @@ features:
     always_online: false
   slash_commands:
     - command: /xgh
-      url: https://xgh-bot.fly.dev/slack/axioms
+      url: https://xgh.renanmedina.online/slack/axioms
       description: Quote an XGH axiom
       usage_hint: "[axiom number] [random]"
       should_escape: false
 oauth_config:
   redirect_urls:
-    - https://xgh-bot.fly.dev/slack/oauth
     - https://xgh.renanmedina.online/slack/oauth
   scopes:
     bot:
