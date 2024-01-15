@@ -46,7 +46,7 @@ func SlackBotHandler(c *gin.Context) {
 
 	if request.isRandomAxiomType() {
 		axiom := service.PickOneRandom()
-		c.JSON(http.StatusOK, slack.NewSlackSimpleResponse(slack.IN_CHANNEL, axiom.ToQuote()))
+		c.JSON(http.StatusOK, slack.NewSlackSimpleResponse(slack.EPHEMERAL, axiom.ToQuote()))
 		return
 	}
 
@@ -64,5 +64,5 @@ func SlackBotHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, slack.NewSlackSimpleResponse(slack.IN_CHANNEL, axiom.ToQuote()))
+	c.JSON(http.StatusOK, slack.NewSlackSimpleResponse(slack.EPHEMERAL, axiom.ToQuote()))
 }

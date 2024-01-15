@@ -7,6 +7,7 @@ type SlackSimpleResponse struct {
 
 const (
 	IN_CHANNEL = "in_channel"
+	EPHEMERAL  = "ephemeral"
 )
 
 func NewSlackSimpleResponse(rtype string, body string) SlackSimpleResponse {
