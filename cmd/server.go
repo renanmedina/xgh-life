@@ -24,7 +24,7 @@ func main() {
 
 	slack := router.Group("/slack")
 	{
-		slack.POST("/slack/axioms", handlers.SlackBotHandler)
+		slack.POST("/axioms", handlers.SlackBotHandler)
 	}
 
 	err := router.Run(fmt.Sprintf(":%s", port))
