@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/gin-contrib/cors"
@@ -17,6 +18,15 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+
+	router.Static("/_app/", "./frontend/build/_app")
+	router.Static("/images/", "./frontend/build/images")
+	router.LoadHTMLFiles("frontend/build/index.html")
+
+	router.GET("/", func(c *gin.Context) {
+		c.Header("Content-Type", "text/html")
+		c.HTML(http.StatusOK, "index.html", gin.H{})
+	})
 
 	api := router.Group("/api")
 	{

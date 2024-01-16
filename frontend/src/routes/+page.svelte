@@ -7,7 +7,7 @@
 
   const fetchAxiom = async() => {
     try {
-      const response = await fetch('http://localhost:8080/api/axioms/roulette');
+      const response = await fetch('/api/axioms/roulette');
       currentAxiom = await response.json();
     } finally {
       isLoading = false

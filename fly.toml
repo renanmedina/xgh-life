@@ -9,6 +9,10 @@ primary_region = "gru"
 [build]
   builder = "paketobuildpacks/builder:base"
   buildpacks = ["gcr.io/paketo-buildpacks/go"]
+  ignorefile = ".dockerignore"
+
+[build.args]
+  BP_KEEP_FILES = "frontend/build/*"
 
 [env]
   PORT = "8080"

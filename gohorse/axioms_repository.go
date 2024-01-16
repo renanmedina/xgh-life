@@ -50,6 +50,9 @@ func (service *AxiomsRepository) GetByNumber(number int) (*Axiom, error) {
 func (service *AxiomsRepository) GetRandom() Axiom {
 	listSize := len(service.axiomsList)
 	randomAxiomNumber := rand.Intn(listSize)
+	for randomAxiomNumber == 0 {
+		randomAxiomNumber = rand.Intn(listSize)
+	}
 	return service.axiomsList[randomAxiomNumber]
 }
 
