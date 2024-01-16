@@ -1,9 +1,11 @@
 <script>
-    import { onMount } from "svelte";
+  import { onMount } from "svelte";
   import "../styles/app.css";
+  import Horse, {HORSE_DIRECTIONS} from "$lib/horse";
 
   let currentAxiom = null
   let isLoading = true
+  const horses = [];
 
   const fetchAxiom = async() => {
     try {
@@ -14,9 +16,37 @@
     }
   }
 
+  const spawnHorses = () => {
+    const horseProps = {
+      width: 60,
+      height: 60,
+      sprite: '/images/running_horse.gif',
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight
+    }
+
+    horses.push(
+      new Horse({...horseProps, x: 2, y: window.innerHeight - horseProps.height}),
+      new Horse({...horseProps, x: window.innerWidth - horseProps.width, direction: HORSE_DIRECTIONS.LEFT}),
+      // new Horse({...horseProps, y: (window.innerHeight / 2) - horseProps.height, direction: HORSE_DIRECTIONS.DOWN}),
+      // new Horse({...horseProps, x: window.innerWidth - horseProps.height, y: (window.innerHeight / 2) + horseProps.height, direction: HORSE_DIRECTIONS.UP}),
+    )
+
+    for(const horse of horses) {
+      document.body.appendChild(horse.htmlElement())
+    }
+  }
+
   onMount(async () => {
    await fetchAxiom();
+   spawnHorses();
   })
+
+  setInterval(() => {
+    for(const horse of horses) {
+      horse.update();
+    }
+  }, 35)
 </script>
 
 <style>
