@@ -21,8 +21,12 @@ func AxiomsListHandler(c *gin.Context) {
 func AxiomDetailsHandler(c *gin.Context) {
 	use_case := gohorse.NewGetAxiomUseCase()
 
-	axiom, err := use_case.Execute(c.Param("number"))
+	id := c.Param("id")
+	if id == "roulette" {
+		id = gohorse.RANDOM_OPTION
+	}
 
+	axiom, err := use_case.Execute(id)
 	if err != nil {
 		statusCode := http.StatusBadRequest
 		if errors.As(err, &gohorse.AxiomNotFoundError{}) {

@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-bot/handlers"
 )
 
 func main() {
 	router := gin.Default()
+	router.Use(cors.Default())
 	port := os.Getenv("PORT")
 
 	if port == "" {
@@ -19,7 +21,7 @@ func main() {
 	api := router.Group("/api")
 	{
 		api.GET("/axioms", handlers.AxiomsListHandler)
-		api.GET("/axioms/:number", handlers.AxiomDetailsHandler)
+		api.GET("/axioms/:id", handlers.AxiomDetailsHandler)
 	}
 
 	slack := router.Group("/slack")

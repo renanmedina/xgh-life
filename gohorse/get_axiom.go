@@ -5,10 +5,6 @@ import (
 	"strconv"
 )
 
-type AxiomTypeOption interface {
-	int | string
-}
-
 type GetAxiomUseCase struct {
 	repository AxiomsRepository
 }
