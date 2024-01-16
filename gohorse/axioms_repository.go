@@ -1,17 +1,16 @@
 package gohorse
 
 import (
-	"errors"
 	"fmt"
 	"math/rand"
 )
 
-type AxiomsService struct {
+type AxiomsRepository struct {
 	axiomsList map[int]Axiom
 }
 
-func NewAxiomsService() AxiomsService {
-	return AxiomsService{
+func NewAxiomsRepository() AxiomsRepository {
+	return AxiomsRepository{
 		axiomsList: map[int]Axiom{
 			1:  {1, "Pensou, não é XGH.", "XGH não pensa, faz a primeira coisa que vem à mente. Não existe segunda opção, a única opção é a mais rápida."},
 			2:  {2, "Existem 3 formas de se resolver um problema, a correta, a errada e a XGH, que é igual à errada, só que mais rápida.", "XGH é mais rápido que qualquer metodologia de desenvolvimento de software que você conhece (Vide Axioma 14)."},
@@ -39,21 +38,21 @@ func NewAxiomsService() AxiomsService {
 	}
 }
 
-func (service *AxiomsService) GetByNumber(number int) (*Axiom, error) {
+func (service *AxiomsRepository) GetByNumber(number int) (*Axiom, error) {
 	axiom, exists := service.axiomsList[number]
 	if !exists {
-		return nil, errors.New(fmt.Sprintf("Axiom by number %d not found", number))
+		return nil, NewAxiomNotFoundError(fmt.Sprintf("Axiom by number %d not found", number))
 	}
 
 	return &axiom, nil
 }
 
-func (service *AxiomsService) PickOneRandom() Axiom {
+func (service *AxiomsRepository) GetRandom() Axiom {
 	listSize := len(service.axiomsList)
 	randomAxiomNumber := rand.Intn(listSize)
 	return service.axiomsList[randomAxiomNumber]
 }
 
-func (service *AxiomsService) GetAxiomsList() map[int]Axiom {
+func (service *AxiomsRepository) GetAll() map[int]Axiom {
 	return service.axiomsList
 }

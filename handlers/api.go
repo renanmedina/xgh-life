@@ -1,35 +1,35 @@
 package handlers
 
 import (
+	"errors"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-bot/gohorse"
 )
 
-var service gohorse.AxiomsService
+var repository gohorse.AxiomsRepository
 
 func init() {
-	service = gohorse.NewAxiomsService()
+	repository = gohorse.NewAxiomsRepository()
 }
 
 func AxiomsListHandler(c *gin.Context) {
-	c.JSON(200, service.GetAxiomsList())
+	c.JSON(200, repository.GetAll())
 }
 
 func AxiomDetailsHandler(c *gin.Context) {
-	axiomNumber, err := strconv.Atoi(c.Param("number"))
+	use_case := gohorse.NewGetAxiomUseCase()
+
+	axiom, err := use_case.Execute(c.Param("number"))
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid axiom number parameter"})
-		return
-	}
+		statusCode := http.StatusBadRequest
+		if errors.As(err, &gohorse.AxiomNotFoundError{}) {
+			statusCode = http.StatusNotFound
+		}
 
-	axiom, err := service.GetByNumber(axiomNumber)
-
-	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		c.JSON(statusCode, gin.H{"error": err.Error()})
 		return
 	}
 
