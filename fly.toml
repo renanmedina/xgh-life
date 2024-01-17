@@ -12,7 +12,7 @@ primary_region = "gru"
   ignorefile = ".dockerignore"
 
 [build.args]
-  BP_KEEP_FILES = "frontend/build/*"
+  BP_KEEP_FILES = "frontend/*"
 
 [env]
   PORT = "8080"

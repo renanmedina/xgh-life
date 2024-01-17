@@ -1,11 +1,11 @@
-export const HORSE_DIRECTIONS = {
+const HORSE_DIRECTIONS = {
   RIGHT: 1,
   LEFT: 2,
   UP: 3,
   DOWN: 4
 }
 
-export default class Horse {
+class Horse {
   
   
   /**

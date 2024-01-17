@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 	"os"
 
 	"github.com/gin-contrib/cors"
@@ -19,19 +18,22 @@ func main() {
 		port = "8080"
 	}
 
-	router.Static("/_app/", "./frontend/build/_app")
-	router.Static("/images/", "./frontend/build/images")
-	router.LoadHTMLFiles("frontend/build/index.html")
+	router.Static("/images/", "../frontend/static/images")
+	router.Static("/scripts/", "../frontend/static/scripts")
+	router.LoadHTMLGlob("../frontend/templates/*")
 
 	router.GET("/", func(c *gin.Context) {
-		c.Header("Content-Type", "text/html")
-		c.HTML(http.StatusOK, "index.html", gin.H{})
+		c.AddParam("id", "roulette")
+		handlers.AxiomDetailsHandlerHtml(c)
 	})
+
+	router.GET("/:id", handlers.AxiomDetailsHandlerHtml)
+	router.GET("/axioms/:id", handlers.AxiomDetailsHandlerHtml)
 
 	api := router.Group("/api")
 	{
 		api.GET("/axioms", handlers.AxiomsListHandler)
-		api.GET("/axioms/:id", handlers.AxiomDetailsHandler)
+		api.GET("/axioms/:id", handlers.AxiomDetailsHandlerJson)
 	}
 
 	slack := router.Group("/slack")
