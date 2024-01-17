@@ -5,52 +5,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/scripts/horse.js"></script>
-    <script type="text/javascript">
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brown: '#8f6140',
-            }
-          }
-        }
-      }
-
-      const horses = [];
-
-      const spawnHorses = () => {
-        const horseProps = {
-          width: 60,
-          height: 60,
-          sprite: '/images/running_horse.gif',
-          screenWidth: window.innerWidth,
-          screenHeight: window.innerHeight
-        }
-
-        horses.push(
-          new Horse({...horseProps, x: 2, y: window.innerHeight - horseProps.height}),
-          new Horse({...horseProps, x: window.innerWidth - horseProps.width, direction: HORSE_DIRECTIONS.LEFT}),
-          // new Horse({...horseProps, y: (window.innerHeight / 2) - horseProps.height, direction: HORSE_DIRECTIONS.DOWN}),
-          // new Horse({...horseProps, x: window.innerWidth - horseProps.height, y: (window.innerHeight / 2) + horseProps.height, direction: HORSE_DIRECTIONS.UP}),
-        )
-
-        for(const horse of horses) {
-          document.body.appendChild(horse.htmlElement())
-        }
-      }
-
-      setInterval(() => {
-        for(const horse of horses) {
-          horse.update();
-        }
-      }, 35)
-    </script>
-
+    <script src="/scripts/initializers.js"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xgh.renanmedina.online/axioms/{{.axiom.Number}}">
     <meta property="og:title" content="{{ .axiom.Number }} - {{ .axiom.Title }}">
     <meta property="og:site_name" content="XGH">
-    <meta property="og:url" content="https://xgh.renanmedina.online/axioms/{{.axiom.Number}}">
     <meta property="og:description" content="{{ .axiom.Description }}">
-    <meta property="og:type" content="article">
+    <meta property="og:image" content="/images/xgh_icon.png">
+    <meta property="twitter:card" content="/images/xgh_icon.png">
 
     <style type="text/css">
       html, body {
