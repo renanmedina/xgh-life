@@ -18,9 +18,9 @@ func main() {
 		port = "8080"
 	}
 
-	router.Static("/images/", "../frontend/static/images")
-	router.Static("/scripts/", "../frontend/static/scripts")
-	router.LoadHTMLGlob("../frontend/templates/*")
+	router.Static("/images/", "./frontend/static/images")
+	router.Static("/scripts/", "./frontend/static/scripts")
+	router.LoadHTMLGlob("./frontend/templates/*")
 
 	router.GET("/", func(c *gin.Context) {
 		c.AddParam("id", "roulette")
