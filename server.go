@@ -39,7 +39,6 @@ func main() {
 
 	templ := template.Must(template.New("").ParseFS(templatesEmbeded, "frontend/templates/*.tmpl"))
 	router.SetHTMLTemplate(templ)
-	// router.LoadHTMLGlob("assets/frontend/templates/*")
 
 	router.GET("/", func(c *gin.Context) {
 		c.AddParam("id", "roulette")
