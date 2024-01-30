@@ -26,11 +26,7 @@ var (
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
-	appConfigs, configErr := configs.NewApplicationConfigs()
-
-	if configErr != nil {
-		panic(configErr.Error())
-	}
+	appConfigs := configs.NewApplicationConfigs()
 
 	router := gin.Default()
 	router.Use(cors.Default())
@@ -97,6 +93,11 @@ func configureHandlers(router *gin.Engine) {
 	slack := router.Group("/slack")
 	{
 		slack.POST("/axioms", handlers.SlackBotHandler)
+	}
+
+	github := router.Group("/github/pull-requests")
+	{
+		github.POST("/auto-approve", handlers.GithubAutoApprovePRHandler)
 	}
 }
 
