@@ -18,6 +18,7 @@
 # vendor/
 
 builds/*
+!builds/.keep
 
 # Go workspace file
 go.work
