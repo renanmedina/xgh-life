@@ -11,11 +11,9 @@ primary_region = "gru"
   buildpacks = ["gcr.io/paketo-buildpacks/go"]
   ignorefile = ".dockerignore"
 
-[build.args]
-  BP_KEEP_FILES = "frontend/*"
-
 [env]
   PORT = "8080"
+  XGH_HTTP_PORT = "8080"
 
 [http_service]
   internal_port = 8080

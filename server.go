@@ -59,7 +59,7 @@ func main() {
 		slack.POST("/axioms", handlers.SlackBotHandler)
 	}
 
-	host := fmt.Sprintf("localhost:%s", port)
+	host := fmt.Sprintf(":%s", port)
 	logger.Printf("[XGH-BOT:WEBSERVER-LOG] Listening and serving HTTP on %s", host)
 
 	err := router.Run(host)
