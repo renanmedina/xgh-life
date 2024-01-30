@@ -26,11 +26,11 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.Use(cors.Default())
-	port := os.Getenv("PORT")
+	port := detectEnvPort()
 	logger := log.Default()
 
 	if port == "" {
-		logger.Println("[WEBSERVER-LOG] No provided port by environment, using default 8080")
+		logger.Println("[XGH-BOT:WEBSERVER-LOG] No provided port by environment, using default 8080")
 		port = "8080"
 	}
 
@@ -60,10 +60,20 @@ func main() {
 	}
 
 	host := fmt.Sprintf("localhost:%s", port)
-	logger.Printf("[WEBSERVER-LOG] Listening and serving HTTP on %s", host)
+	logger.Printf("[XGH-BOT:WEBSERVER-LOG] Listening and serving HTTP on %s", host)
 
 	err := router.Run(host)
 	if err != nil {
-		panic("[Error] failed to start Gin server due to: " + err.Error())
+		panic("[XGH-BOT:WEBSERVER-LOG] failed to start server due to: " + err.Error())
 	}
+}
+
+func detectEnvPort() string {
+	port := os.Getenv("PORT")
+
+	if port != "" {
+		return port
+	}
+
+	return os.Getenv("XGH_HTTP_PORT")
 }
