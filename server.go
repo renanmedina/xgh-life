@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/gin-contrib/cors"
@@ -10,11 +11,14 @@ import (
 )
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.Use(cors.Default())
 	port := os.Getenv("PORT")
+	logger := log.Default()
 
 	if port == "" {
+		logger.Println("[WEBSERVER-LOG] No provided port by environment, using default 8080")
 		port = "8080"
 	}
 
@@ -41,7 +45,10 @@ func main() {
 		slack.POST("/axioms", handlers.SlackBotHandler)
 	}
 
-	err := router.Run(fmt.Sprintf(":%s", port))
+	host := fmt.Sprintf("localhost:%s", port)
+	logger.Printf("[WEBSERVER-LOG] Listening and serving HTTP on %s", host)
+
+	err := router.Run(host)
 	if err != nil {
 		panic("[Error] failed to start Gin server due to: " + err.Error())
 	}
