@@ -12,7 +12,7 @@ const spawnHorses = () => {
   const horseProps = {
     width: 60,
     height: 60,
-    sprite: '/images/running_horse.gif',
+    sprite: '/assets/static/images/running_horse.gif',
     screenWidth: window.innerWidth,
     screenHeight: window.innerHeight
   }

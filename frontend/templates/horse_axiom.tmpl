@@ -4,15 +4,15 @@
     <meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/scripts/horse.js"></script>
-    <script src="/scripts/initializers.js"></script>
+    <script src="/assets/static/scripts/horse.js"></script>
+    <script src="/assets/static/scripts/initializers.js"></script>
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="XGH">
-    <meta property="og:url" content="https://xgh.renanmedina.online/axioms/{{.axiom.Number}}">
+    <meta property="og:url" content="https://xhg.life/axioms/{{.axiom.Number}}">
     <meta property="og:title" content="{{ .axiom.Number }} - {{ .axiom.Title }}">
     <meta property="og:description" content="{{ .axiom.Description }}">
-    <meta property="og:image" content="/images/xgh_og_image.png">
-    <meta property="twitter:card" content="/images/xgh_og_image.png">
+    <meta property="og:image" content="/assets/static/images/xgh_og_image.png">
+    <meta property="twitter:card" content="/assets/static/images/xgh_og_image.png">
 
     <style type="text/css">
       html, body {
@@ -46,7 +46,7 @@
   <body class="bg-brown" onload="spawnHorses()">
     <section class="flex justify-center place-items-center h-full">
       <div class="flex justify-center flex-column">
-        <img src="/images/xgh_icon.png" alt="xgh horse icon" class="w-32 rounded-full block place-self-center">
+        <img src="/assets/static/images/xgh_icon.png" alt="xgh horse icon" class="w-32 rounded-full block place-self-center">
         <div class="mr-4 ml-6 rounded-lg bg-orange-300 p-4 block max-w-96 horse-bubble text-yellow-950">
           <h3 class="text-lg font-bold mb-4">{{ .axiom.Number}} - {{ .axiom.Title }}</h3>
           {{ .axiom.Description }}

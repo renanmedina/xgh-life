@@ -1,13 +1,25 @@
 package main
 
 import (
+	"embed"
 	"fmt"
+	"html/template"
+	"io/fs"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-bot/handlers"
+)
+
+var (
+	//go:embed frontend/static/*
+	staticEmbeded embed.FS
+
+	//go:embed frontend/templates/*
+	templatesEmbeded embed.FS
 )
 
 func main() {
@@ -22,9 +34,12 @@ func main() {
 		port = "8080"
 	}
 
-	router.Static("/images/", "./frontend/static/images")
-	router.Static("/scripts/", "./frontend/static/scripts")
-	router.LoadHTMLGlob("./frontend/templates/*")
+	assetsFS, _ := fs.Sub(staticEmbeded, "frontend")
+	router.StaticFS("/assets", http.FS(assetsFS))
+
+	templ := template.Must(template.New("").ParseFS(templatesEmbeded, "frontend/templates/*.tmpl"))
+	router.SetHTMLTemplate(templ)
+	// router.LoadHTMLGlob("assets/frontend/templates/*")
 
 	router.GET("/", func(c *gin.Context) {
 		c.AddParam("id", "roulette")
