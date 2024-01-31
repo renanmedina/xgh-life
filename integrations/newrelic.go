@@ -20,16 +20,23 @@ func NewRelicApp() (*newrelic.Application, error) {
 	newRelicApp, err := InitializeNewRelicApp(
 		appConfigs.NewRelicAppName,
 		appConfigs.NewRelicLicenseKey,
+		appConfigs.NewRelicEnabled,
 	)
 
 	return newRelicApp, err
 }
 
-func InitializeNewRelicApp(appName string, licenseKey string) (*newrelic.Application, error) {
+func InitializeNewRelicApp(appName string, licenseKey string, enabled bool) (*newrelic.Application, error) {
 	return newrelic.NewApplication(
 		newrelic.ConfigAppName(appName),
 		newrelic.ConfigLicense(licenseKey),
-		newrelic.ConfigAppLogForwardingEnabled(true),
+		newrelic.ConfigAppLogForwardingEnabled(enabled),
+		newrelic.ConfigAppLogEnabled(enabled),
+		newrelic.ConfigAppLogMetricsEnabled(enabled),
+		newrelic.ConfigModuleDependencyMetricsEnabled(enabled),
+		func(config *newrelic.Config) {
+			config.Enabled = enabled
+		},
 	)
 }
 
