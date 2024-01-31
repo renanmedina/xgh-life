@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"html/template"
 	"io/fs"
-	"log"
 	"net/http"
 	"os"
 
@@ -44,11 +43,7 @@ func main() {
 
 func configureNewRelic(router *gin.Engine, configs *configs.ApplicationConfigs) {
 	if configs.NewRelicEnabled {
-		newRelicApp, err := integrations.InitializeNewRelicApp(
-			configs.NewRelicAppName,
-			configs.NewRelicLicenseKey,
-		)
-
+		newRelicApp, err := integrations.NewRelicApp()
 		if err != nil {
 			panic(fmt.Sprintf("[XGH-BOT:NEWRELIC-INTEGRATION] %s", err))
 		}
@@ -103,7 +98,7 @@ func configureHandlers(router *gin.Engine) {
 
 func bootServer(router *gin.Engine) error {
 	port := detectEnvPort()
-	logger := log.Default()
+	logger := integrations.NewApplicationLogger()
 
 	if port == "" {
 		logger.Println("[XGH-BOT:WEBSERVER-LOG] No provided port by environment, using default 8080")
