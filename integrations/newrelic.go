@@ -36,5 +36,6 @@ func InitializeNewRelicApp(appName string, licenseKey string) (*newrelic.Applica
 func NewRelicLogger() *log.Logger {
 	app, _ := NewRelicApp()
 	writer := logWriter.New(os.Stdout, app)
+	writer.DebugLogging(true)
 	return log.New(&writer, "", log.Default().Flags())
 }

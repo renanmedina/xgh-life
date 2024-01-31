@@ -18,7 +18,6 @@ func NewApplicationLogger() *log.Logger {
 	Logger = log.Default()
 
 	if appConfig.NewRelicEnabled {
-		Logger.Println("Initializing and using newrelic logger agent")
 		Logger = NewRelicLogger()
 	}
 
