@@ -17,10 +17,12 @@ func NewRelicApp() (*newrelic.Application, error) {
 		return newRelicApp, nil
 	}
 
-	return InitializeNewRelicApp(
+	newRelicApp, err := InitializeNewRelicApp(
 		appConfigs.NewRelicAppName,
 		appConfigs.NewRelicLicenseKey,
 	)
+
+	return newRelicApp, err
 }
 
 func InitializeNewRelicApp(appName string, licenseKey string) (*newrelic.Application, error) {

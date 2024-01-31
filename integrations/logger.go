@@ -8,10 +8,6 @@ import (
 
 var Logger *log.Logger
 
-func init() {
-
-}
-
 func NewApplicationLogger() *log.Logger {
 	if Logger != nil {
 		return Logger
@@ -19,9 +15,12 @@ func NewApplicationLogger() *log.Logger {
 
 	appConfig := configs.NewApplicationConfigs()
 
+	Logger = log.Default()
+
 	if appConfig.NewRelicEnabled {
-		return NewRelicLogger()
+		Logger.Println("Initializing and using newrelic logger agent")
+		Logger = NewRelicLogger()
 	}
 
-	return log.Default()
+	return Logger
 }
