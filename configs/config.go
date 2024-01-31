@@ -13,7 +13,7 @@ type ApplicationConfigs struct {
 }
 
 func NewApplicationConfigs() *ApplicationConfigs {
-	newRelicEnabled, err := strconv.ParseBool(os.Getenv("NEW_RELIC_ENABLED"))
+	newRelicEnabled, err := strconv.ParseBool(os.Getenv("NEWRELIC_ENABLED"))
 
 	if err != nil {
 		newRelicEnabled = false
@@ -21,8 +21,8 @@ func NewApplicationConfigs() *ApplicationConfigs {
 
 	config := &ApplicationConfigs{
 		NewRelicEnabled:    newRelicEnabled,
-		NewRelicAppName:    os.Getenv("NEW_RELIC_APP_NAME"),
-		NewRelicLicenseKey: os.Getenv("NEW_RELIC_LICENSE_KEY"),
+		NewRelicAppName:    os.Getenv("NEWRELIC_APP_NAME"),
+		NewRelicLicenseKey: os.Getenv("NEWRELIC_LICENSE_KEY"),
 		GithubAuthToken:    os.Getenv("GITHUB_AUTH_TOKEN"),
 	}
 
