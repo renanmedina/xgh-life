@@ -17,7 +17,6 @@ func NewApplicationConfigs() *ApplicationConfigs {
 
 	if err != nil {
 		newRelicEnabled = false
-		// return nil, fmt.Errorf("[XGH-BOT:Application] Invalid value for NEWRELIC_ENABLED environment variable: %s", err.Error())
 	}
 
 	config := &ApplicationConfigs{

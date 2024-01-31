@@ -97,7 +97,7 @@ func configureHandlers(router *gin.Engine) {
 
 	github := router.Group("/github/pull-requests")
 	{
-		github.POST("/auto-approve", handlers.GithubAutoApprovePRHandler)
+		github.POST("/auto-approve", handlers.GithubAutoApprovePullRequestHandler)
 	}
 }
 

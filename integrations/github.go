@@ -3,7 +3,9 @@ package integrations
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -17,7 +19,7 @@ const APPROVE_ACTION string = "APPROVE"
 
 func NewGithubClient(authToken string) *GithubClient {
 	return &GithubClient{
-		baseUrl:    "https://api.github.com/",
+		baseUrl:    "https://api.github.com",
 		authToken:  authToken,
 		httpClient: &http.Client{},
 	}
@@ -59,10 +61,16 @@ func (client *GithubClient) sendPost(path string, params map[string]string) erro
 		return err
 	}
 
-	_, err = client.send(request)
+	response, err := client.send(request)
 
 	if err != nil {
 		return err
+	}
+
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusOK {
+		bodyData, _ := io.ReadAll(response.Body)
+		return errors.New(string(bodyData))
 	}
 
 	return nil
@@ -71,11 +79,5 @@ func (client *GithubClient) sendPost(path string, params map[string]string) erro
 func (client *GithubClient) ApprovePullRequest(repository string, pullRequestId string) error {
 	path := fmt.Sprintf("/repos/%s/pulls/%s/reviews", repository, pullRequestId)
 	params := map[string]string{"body": "LGTM!", "event": APPROVE_ACTION}
-	err := client.sendPost(path, params)
-
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return client.sendPost(path, params)
 }
