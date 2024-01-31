@@ -2,6 +2,7 @@ package gohorse
 
 import (
 	"fmt"
+	"math/rand"
 
 	"github.com/renanmedina/xgh-bot/configs"
 	"github.com/renanmedina/xgh-bot/integrations"
@@ -13,11 +14,12 @@ type AutoApprovePullRequest struct {
 }
 
 type Author struct {
-	name string
+	name          string
+	approveChance int
 }
 
 func (a *Author) shouldAutoApprove() bool {
-	return true
+	return rand.Intn(100) <= a.approveChance
 }
 
 func NewAutoApprovePullRequestUseCase() *AutoApprovePullRequest {
@@ -26,9 +28,9 @@ func NewAutoApprovePullRequestUseCase() *AutoApprovePullRequest {
 	return &AutoApprovePullRequest{
 		githubClient: client,
 		whitelist: []Author{
-			{"eduardohertz"},
-			{"pedro-hgm"},
-			{"thekaduu"},
+			{"eduardohertz", 100},
+			{"pedro-hgm", 100},
+			{"thekaduu", 50},
 		},
 	}
 }
