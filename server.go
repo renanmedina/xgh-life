@@ -71,6 +71,10 @@ func configureStatic(router *gin.Engine) {
 }
 
 func configureHandlers(router *gin.Engine) {
+	router.GET("/healthcheck", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"is-alive": true})
+	})
+
 	router.GET("/", func(c *gin.Context) {
 		c.AddParam("id", "roulette")
 		handlers.AxiomDetailsHandlerHtml(c)
