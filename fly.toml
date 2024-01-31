@@ -15,8 +15,9 @@ primary_region = "gru"
   PORT = "8080"
   XGH_HTTP_PORT = "8080"
   ENVIRONMENT = "production"
-  NEWRELIC_ENABLED = true
+  NEWRELIC_ENABLED = "true"
   NEWRELIC_APP_NAME = "XGH-Bot"
+  TZ = "America/Sao_Paulo"
 
 [http_service]
   internal_port = 8080

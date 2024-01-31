@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"html/template"
 	"io/fs"
-	"log"
 	"net/http"
 	"os"
 
@@ -26,11 +25,7 @@ var (
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
-	appConfigs, configErr := configs.NewApplicationConfigs()
-
-	if configErr != nil {
-		panic(configErr.Error())
-	}
+	appConfigs := configs.NewApplicationConfigs()
 
 	router := gin.Default()
 	router.Use(cors.Default())
@@ -48,11 +43,7 @@ func main() {
 
 func configureNewRelic(router *gin.Engine, configs *configs.ApplicationConfigs) {
 	if configs.NewRelicEnabled {
-		newRelicApp, err := integrations.InitializeNewRelicApp(
-			configs.NewRelicAppName,
-			configs.NewRelicLicenseKey,
-		)
-
+		newRelicApp, err := integrations.NewRelicApp()
 		if err != nil {
 			panic(fmt.Sprintf("[XGH-BOT:NEWRELIC-INTEGRATION] %s", err))
 		}
@@ -80,6 +71,10 @@ func configureStatic(router *gin.Engine) {
 }
 
 func configureHandlers(router *gin.Engine) {
+	router.GET("/infra/healthcheck", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"is-alive": true})
+	})
+
 	router.GET("/", func(c *gin.Context) {
 		c.AddParam("id", "roulette")
 		handlers.AxiomDetailsHandlerHtml(c)
@@ -98,11 +93,16 @@ func configureHandlers(router *gin.Engine) {
 	{
 		slack.POST("/axioms", handlers.SlackBotHandler)
 	}
+
+	github := router.Group("/github/pull-requests")
+	{
+		github.POST("/auto-approve", handlers.GithubAutoApprovePullRequestHandler)
+	}
 }
 
 func bootServer(router *gin.Engine) error {
 	port := detectEnvPort()
-	logger := log.Default()
+	logger := integrations.NewApplicationLogger()
 
 	if port == "" {
 		logger.Println("[XGH-BOT:WEBSERVER-LOG] No provided port by environment, using default 8080")
