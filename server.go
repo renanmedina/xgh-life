@@ -71,7 +71,7 @@ func configureStatic(router *gin.Engine) {
 }
 
 func configureHandlers(router *gin.Engine) {
-	router.GET("/healthcheck", func(c *gin.Context) {
+	router.GET("/infra/healthcheck", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"is-alive": true})
 	})
 
