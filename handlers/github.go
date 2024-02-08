@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/renanmedina/xgh-bot/gohorse"
-	"github.com/renanmedina/xgh-bot/integrations"
+	"github.com/renanmedina/xgh-life/gohorse"
+	"github.com/renanmedina/xgh-life/integrations"
 )
 
 type GithubWebhookMessage struct {
@@ -30,21 +30,21 @@ func GithubAutoApprovePullRequestHandler(c *gin.Context) {
 	messageJson, err := c.GetRawData()
 
 	if err != nil {
-		logger.Printf("[XGH-BOT:WEBSERVER-LOG] Failed to parse github event received")
+		logger.Printf("[XGH-LIFE:WEBSERVER-LOG] Failed to parse github event received")
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	githubEventType := c.GetHeader("X-Github-Event")
-	logger.Printf("[XGH-BOT:WEBSERVER-LOG] Github webhook event received: %s", messageJson)
-	logger.Printf("[XGH-BOT:WEBSERVER-LOG] Github webhook event_type received: %s", githubEventType)
+	logger.Printf("[XGH-LIFE:WEBSERVER-LOG] Github webhook event received: %s", messageJson)
+	logger.Printf("[XGH-LIFE:WEBSERVER-LOG] Github webhook event_type received: %s", githubEventType)
 
 	var message GithubWebhookMessage
 	json.Unmarshal(messageJson, &message)
 	message.eventType = githubEventType
 
 	if message.isPullRequestOpened() {
-		logger.Printf("[XGH-BOT:WEBSERVER-LOG] Running pull request auto approver")
+		logger.Printf("[XGH-LIFE:WEBSERVER-LOG] Running pull request auto approver")
 		use_case := gohorse.NewAutoApprovePullRequestUseCase(logger)
 		err := use_case.Execute(message.repositoryNameWithOwner(), message.pullRequestId(), message.authorName())
 

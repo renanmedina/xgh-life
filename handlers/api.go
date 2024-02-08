@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/renanmedina/xgh-bot/gohorse"
+	"github.com/renanmedina/xgh-life/gohorse"
 )
 
 var repository gohorse.AxiomsRepository

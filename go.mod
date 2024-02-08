@@ -1,4 +1,4 @@
-module github.com/renanmedina/xgh-bot
+module github.com/renanmedina/xgh-life
 
 go 1.21.6
 

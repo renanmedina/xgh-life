@@ -3,7 +3,7 @@ package integrations
 import (
 	"log"
 
-	"github.com/renanmedina/xgh-bot/configs"
+	"github.com/renanmedina/xgh-life/configs"
 )
 
 var Logger *log.Logger

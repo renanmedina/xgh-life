@@ -11,9 +11,9 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/newrelic/go-agent/v3/integrations/nrgin"
-	"github.com/renanmedina/xgh-bot/configs"
-	"github.com/renanmedina/xgh-bot/handlers"
-	"github.com/renanmedina/xgh-bot/integrations"
+	"github.com/renanmedina/xgh-life/configs"
+	"github.com/renanmedina/xgh-life/handlers"
+	"github.com/renanmedina/xgh-life/integrations"
 )
 
 var (
@@ -37,7 +37,7 @@ func main() {
 	err := bootServer(router)
 
 	if err != nil {
-		panic("[XGH-BOT:WEBSERVER-LOG] failed to start server due to: " + err.Error())
+		panic("[XGH-LIFE:WEBSERVER-LOG] failed to start server due to: " + err.Error())
 	}
 }
 
@@ -45,7 +45,7 @@ func configureNewRelic(router *gin.Engine, configs *configs.ApplicationConfigs) 
 	if configs.NewRelicEnabled {
 		newRelicApp, err := integrations.NewRelicApp()
 		if err != nil {
-			panic(fmt.Sprintf("[XGH-BOT:NEWRELIC-INTEGRATION] %s", err))
+			panic(fmt.Sprintf("[XGH-LIFE:NEWRELIC-INTEGRATION] %s", err))
 		}
 
 		router.Use(nrgin.Middleware(newRelicApp))
@@ -105,12 +105,12 @@ func bootServer(router *gin.Engine) error {
 	logger := integrations.NewApplicationLogger()
 
 	if port == "" {
-		logger.Println("[XGH-BOT:WEBSERVER-LOG] No provided port by environment, using default 8080")
+		logger.Println("[XGH-LIFE:WEBSERVER-LOG] No provided port by environment, using default 8080")
 		port = "8080"
 	}
 
 	host := fmt.Sprintf(":%s", port)
-	logger.Printf("[XGH-BOT:WEBSERVER-LOG] Listening and serving HTTP on %s", host)
+	logger.Printf("[XGH-LIFE:WEBSERVER-LOG] Listening and serving HTTP on %s", host)
 
 	return router.Run(host)
 }
