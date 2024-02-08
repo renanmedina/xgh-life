@@ -80,6 +80,8 @@ func configureHandlers(router *gin.Engine) {
 		handlers.AxiomDetailsHandlerHtml(c)
 	})
 
+	router.StaticFileFS("/robots.txt", "frontend/static/robots.txt", http.FS(staticEmbeded))
+
 	router.GET("/:id", handlers.AxiomDetailsHandlerHtml)
 	router.GET("/axioms/:id", handlers.AxiomDetailsHandlerHtml)
 
