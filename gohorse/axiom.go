@@ -15,7 +15,7 @@ func (axiom Axiom) Url() string {
 }
 
 func (axiom Axiom) AudioUrl() string {
-	return fmt.Sprintf("/assets/static/audios/axiom_%d.mp3", axiom.Number)
+	return fmt.Sprintf("/assets/static/audios/axioms/axiom_%d.mp3", axiom.Number)
 }
 
 func (axiom Axiom) ToQuote() string {
