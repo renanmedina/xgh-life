@@ -44,7 +44,7 @@
       }
     </style>
   </head>
-  <body class="bg-brown" onload="spawnHorses()">
+  <body class="bg-brown" onload="initialize()">
     <section class="flex justify-center place-items-center h-full">
       <div class="flex justify-center flex-column">
         <img src="/assets/static/images/xgh_icon.png" alt="xgh horse icon" class="w-32 rounded-full block place-self-center">
@@ -52,7 +52,7 @@
           <h3 class="text-lg font-bold mb-4">{{ .axiom.Number}} - {{ .axiom.Title }}</h3>
           {{ .axiom.Description }}
 
-          <audio class="hidden" id="audio-autoplay-element" autoplay preload="auto">
+          <audio class="hidden" id="audio-autoplay-element">
             <source src="{{ .autoplayUrl }}" type="audio/mpeg">
           </audio>
         </div>
