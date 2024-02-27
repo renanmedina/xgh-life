@@ -62,7 +62,7 @@ func AxiomDetailsHandlerHtml(c *gin.Context) {
 	autoplayUrl := "/assets/static/audios/horse_sound.mp3"
 	shouldPlayVoice, err := strconv.Atoi(c.Query("voice"))
 
-	if err != nil && shouldPlayVoice == 1 {
+	if err == nil && shouldPlayVoice == 1 {
 		autoplayUrl = axiom.AudioUrl()
 	}
 
