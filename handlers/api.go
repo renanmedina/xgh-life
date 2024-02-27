@@ -59,6 +59,7 @@ func AxiomDetailsHandlerHtml(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "horse_axiom.tmpl", gin.H{
-		"axiom": axiom,
+		"axiom":         axiom,
+		"axiomAudioUrl": axiom.AudioUrl(),
 	})
 }
