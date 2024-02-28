@@ -39,3 +39,14 @@ const startAnimationLoop = (horses) => {
   }, 35);
 }
 
+const autoplayAudio = () => {
+  const element = document.getElementById("audio-autoplay-element");
+  element.play();
+  document.removeEventListener('click', autoplayAudio);
+}
+
+function initialize() {
+  spawnHorses();
+  document.addEventListener('click', autoplayAudio);
+}
+

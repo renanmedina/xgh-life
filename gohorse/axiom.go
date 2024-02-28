@@ -14,6 +14,10 @@ func (axiom Axiom) Url() string {
 	return fmt.Sprintf("https://gohorse.com.br/extreme-go-horse-xgh/#%d", axiom.Number)
 }
 
+func (axiom Axiom) AudioUrl() string {
+	return fmt.Sprintf("/assets/static/audios/axioms/axiom_%d.mp3", axiom.Number)
+}
+
 func (axiom Axiom) ToQuote() string {
 	return fmt.Sprintf("%d - %s\r\n%s", axiom.Number, axiom.Title, axiom.Description)
 }

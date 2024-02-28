@@ -3,6 +3,7 @@ package handlers
 import (
 	"errors"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-life/gohorse"
@@ -58,7 +59,15 @@ func AxiomDetailsHandlerHtml(c *gin.Context) {
 		return
 	}
 
+	autoplayUrl := "/assets/static/audios/horse_sound.mp3"
+	shouldPlayVoice, err := strconv.Atoi(c.Query("voice"))
+
+	if err == nil && shouldPlayVoice == 1 {
+		autoplayUrl = axiom.AudioUrl()
+	}
+
 	c.HTML(http.StatusOK, "horse_axiom.tmpl", gin.H{
-		"axiom": axiom,
+		"axiom":       axiom,
+		"autoplayUrl": autoplayUrl,
 	})
 }
