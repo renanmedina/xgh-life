@@ -11,11 +11,13 @@ import (
 )
 
 type GithubWebhookMessage struct {
-	eventType  string
-	Action     string `json:"action"`
+	eventType string
+	Action    string `json:"action"`
+
 	Repository struct {
 		RepositoryNameWithOwner string `json:"full_name"`
 	} `json:"repository"`
+
 	PullRequest struct {
 		PullRequestId int    `json:"number"`
 		State         string `json:"state"`
