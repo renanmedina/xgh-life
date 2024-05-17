@@ -1,0 +1,22 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "▶︎ Backend: Run Dev-Webserver",
+      "type": "shell",
+      "command": "./start_server.sh",
+      "windows": {
+        "command": "./start_server.sh"
+      },
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "close": true,
+        "group": "xgh-life-runtime"
+      }
+    },
+  ]
+}
