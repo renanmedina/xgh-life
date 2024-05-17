@@ -76,8 +76,11 @@ func (client *GithubClient) sendPost(path string, params map[string]string) erro
 	return nil
 }
 
-func (client *GithubClient) ApprovePullRequest(repository string, pullRequestId string) error {
+func (client *GithubClient) ApprovePullRequest(repository string, pullRequestId string, bodyComment string) error {
 	path := fmt.Sprintf("/repos/%s/pulls/%s/reviews", repository, pullRequestId)
-	params := map[string]string{"body": "LGTM!", "event": APPROVE_ACTION}
+	params := map[string]string{
+		"body":  bodyComment,
+		"event": APPROVE_ACTION,
+	}
 	return client.sendPost(path, params)
 }
