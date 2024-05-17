@@ -1,5 +1,9 @@
 {
   "files.associations": {
     "*.tmpl": "html"
+  },
+  "go.alternateTools": {
+    "customFormatter": "~/.gvm/gos/go1.22/bin/gofmt",
+    "go": "~/.gvm/gos/go1.22/bin/go",
   }
 }
