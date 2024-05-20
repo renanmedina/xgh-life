@@ -31,7 +31,7 @@ func NewAutoApprovePullRequestUseCase(logger *log.Logger) *AutoApprovePullReques
 		githubClient: client,
 		logger:       logger,
 		whitelist: []Author{
-			{"thekaduu", 100},
+			{"thekaduu", 0},
 		},
 	}
 }
