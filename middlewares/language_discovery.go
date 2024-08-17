@@ -1,8 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-life/gohorse"
 	"github.com/renanmedina/xgh-life/integrations"
@@ -56,7 +54,8 @@ func checkByHostDomain(context *gin.Context) string {
 	request := context.Request
 	hostname := request.URL.Hostname()
 
-	fmt.Println(hostname)
+	logger := integrations.NewApplicationLogger()
+	logger.Printf(hostname)
 
 	return ""
 }
