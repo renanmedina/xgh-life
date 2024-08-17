@@ -52,7 +52,7 @@ func checkByParams(context *gin.Context) string {
 
 func checkByHostDomain(context *gin.Context) string {
 	request := context.Request
-	hostname := request.URL.Hostname()
+	hostname := request.Host
 
 	logger := integrations.NewApplicationLogger()
 	logger.Printf(hostname)
