@@ -5,8 +5,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-life/gohorse"
-	"github.com/renanmedina/xgh-life/integrations"
-	"github.com/renanmedina/xgh-life/utils"
 )
 
 func LanguageDiscovery() gin.HandlerFunc {
@@ -68,18 +66,19 @@ func checkByHostDomain(context *gin.Context) string {
 }
 
 func checkByIpGeolocation(context *gin.Context) string {
-	userIp := context.ClientIP()
-	lookupService := integrations.NewIPGeolocationService(utils.GetConfigs().IPGeolocationApiToken)
+	// disable for now
+	// userIp := context.ClientIP()
+	// lookupService := integrations.NewIPGeolocationService(utils.GetConfigs().IPGeolocationApiToken)
 
-	locationData, err := lookupService.Lookup(userIp)
+	// locationData, err := lookupService.Lookup(userIp)
 
-	if err != nil {
-		return ""
-	}
+	// if err != nil {
+	// 	return ""
+	// }
 
-	if locationData.CountryCode != "BR" {
-		return prefixDomainToLang("en")
-	}
+	// if locationData.CountryCode != "BR" {
+	// 	return prefixDomainToLang("en")
+	// }
 
 	return ""
 }
