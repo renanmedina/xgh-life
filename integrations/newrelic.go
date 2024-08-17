@@ -6,10 +6,10 @@ import (
 
 	"github.com/newrelic/go-agent/v3/integrations/logcontext-v2/logWriter"
 	"github.com/newrelic/go-agent/v3/newrelic"
-	"github.com/renanmedina/xgh-life/configs"
+	"github.com/renanmedina/xgh-life/utils"
 )
 
-var appConfigs = configs.NewApplicationConfigs()
+var appConfigs = utils.NewApplicationConfigs()
 var newRelicApp *newrelic.Application
 
 func NewRelicApp() (*newrelic.Application, error) {

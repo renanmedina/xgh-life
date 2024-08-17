@@ -5,8 +5,8 @@ import (
 	"log"
 	"math/rand"
 
-	"github.com/renanmedina/xgh-life/configs"
 	"github.com/renanmedina/xgh-life/integrations"
+	"github.com/renanmedina/xgh-life/utils"
 )
 
 type AutoApprovePullRequest struct {
@@ -25,7 +25,7 @@ func (a *Author) shouldAutoApprove() bool {
 }
 
 func NewAutoApprovePullRequestUseCase(logger *log.Logger) *AutoApprovePullRequest {
-	appConfigs := configs.NewApplicationConfigs()
+	appConfigs := utils.NewApplicationConfigs()
 	client := integrations.NewGithubClient(appConfigs.GithubAuthToken)
 	return &AutoApprovePullRequest{
 		githubClient: client,

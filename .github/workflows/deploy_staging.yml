@@ -1,16 +1,18 @@
-name: Deploy
+name: Deploy Staging
 on:
   push:
     branches:
-      - main
+      - staging
 jobs:
   deploy:
-    name: Deploy Production
-    environment: production
+    name: Deploy Staging
+    environment: staging
     runs-on: ubuntu-latest
-    concurrency: deploy-production
+    concurrency: deploy-staging
     steps:
       - uses: actions/checkout@v4
+      - name: Copy .toml file
+        run: cp fly.staging.toml fly.toml
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy to Fly.io
         run: flyctl deploy --remote-only

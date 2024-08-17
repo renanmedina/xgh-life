@@ -11,9 +11,10 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/newrelic/go-agent/v3/integrations/nrgin"
-	"github.com/renanmedina/xgh-life/configs"
 	"github.com/renanmedina/xgh-life/handlers"
 	"github.com/renanmedina/xgh-life/integrations"
+	"github.com/renanmedina/xgh-life/middlewares"
+	"github.com/renanmedina/xgh-life/utils"
 )
 
 var (
@@ -25,10 +26,11 @@ var (
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
-	appConfigs := configs.NewApplicationConfigs()
+	appConfigs := utils.NewApplicationConfigs()
 
 	router := gin.Default()
 	router.Use(cors.Default())
+	router.Use(middlewares.LanguageDiscovery())
 
 	configureNewRelic(router, appConfigs)
 	configureStatic(router)
@@ -41,7 +43,7 @@ func main() {
 	}
 }
 
-func configureNewRelic(router *gin.Engine, configs *configs.ApplicationConfigs) {
+func configureNewRelic(router *gin.Engine, configs *utils.ApplicationConfigs) {
 	if configs.NewRelicEnabled {
 		newRelicApp, err := integrations.NewRelicApp()
 		if err != nil {
@@ -89,11 +91,6 @@ func configureHandlers(router *gin.Engine) {
 	{
 		api.GET("/axioms", handlers.AxiomsListHandler)
 		api.GET("/axioms/:id", handlers.AxiomDetailsHandlerJson)
-	}
-
-	slack := router.Group("/slack")
-	{
-		slack.POST("/axioms", handlers.SlackBotHandler)
 	}
 
 	github := router.Group("/github/pull-requests")
