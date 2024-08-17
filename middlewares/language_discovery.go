@@ -1,6 +1,8 @@
 package middlewares
 
 import (
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-life/gohorse"
 	"github.com/renanmedina/xgh-life/integrations"
@@ -54,8 +56,13 @@ func checkByHostDomain(context *gin.Context) string {
 	request := context.Request
 	hostname := request.Host
 
-	logger := integrations.NewApplicationLogger()
-	logger.Printf(hostname)
+	splits := strings.Split(hostname, ".")
+	subdomainLang := splits[0]
+
+	// expecting domain to be something like en.xgh.life or en.staging.xgh.life
+	if len(splits) > 2 && len(subdomainLang) == 2 {
+		return prefixDomainToLang(subdomainLang)
+	}
 
 	return ""
 }
@@ -71,7 +78,22 @@ func checkByIpGeolocation(context *gin.Context) string {
 	}
 
 	if locationData.CountryCode != "BR" {
-		return "en-US"
+		return prefixDomainToLang("en")
+	}
+
+	return ""
+}
+
+func prefixDomainToLang(prefix string) string {
+	prefixes := map[string]string{
+		"en": "en-US",
+		"pt": "pt-BR",
+	}
+
+	lang, found := prefixes[prefix]
+
+	if found {
+		return lang
 	}
 
 	return ""
