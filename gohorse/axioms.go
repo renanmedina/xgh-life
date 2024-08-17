@@ -1,5 +1,7 @@
 package gohorse
 
+import "golang.org/x/exp/maps"
+
 const DEFAULT_LANGUAGE = "pt-BR"
 
 var AXIOMS = map[string]map[int]Axiom{
@@ -53,4 +55,16 @@ var AXIOMS = map[string]map[int]Axiom{
 		22: {22, "The problem is only yours when you name is on the code docs.", "Never touch a class of code which you're not the author. When a team member dies or stays away for too long the thing will go down. When that happens use Axiom 8."},
 		23: {23, "More is more.", "With XGH you thrive on code duplication - code quality is meaningless and there's no time for code reviews or refactoring.  Time is of the essence, so copy and paste, quickly!"},
 	},
+}
+
+func IsLanguageSupported(lang string) bool {
+	keys := maps.Keys(AXIOMS)
+
+	for _, key := range keys {
+		if key == lang {
+			return true
+		}
+	}
+
+	return false
 }

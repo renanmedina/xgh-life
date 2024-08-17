@@ -6,10 +6,21 @@ import (
 )
 
 type ApplicationConfigs struct {
-	NewRelicEnabled    bool
-	NewRelicAppName    string
-	NewRelicLicenseKey string
-	GithubAuthToken    string
+	NewRelicEnabled       bool
+	NewRelicAppName       string
+	NewRelicLicenseKey    string
+	GithubAuthToken       string
+	IPGeolocationApiToken string
+}
+
+var loadedConfigs *ApplicationConfigs
+
+func init() {
+	loadedConfigs = NewApplicationConfigs()
+}
+
+func GetConfigs() *ApplicationConfigs {
+	return loadedConfigs
 }
 
 func NewApplicationConfigs() *ApplicationConfigs {
@@ -20,10 +31,11 @@ func NewApplicationConfigs() *ApplicationConfigs {
 	}
 
 	config := &ApplicationConfigs{
-		NewRelicEnabled:    newRelicEnabled,
-		NewRelicAppName:    os.Getenv("NEWRELIC_APP_NAME"),
-		NewRelicLicenseKey: os.Getenv("NEWRELIC_LICENSE_KEY"),
-		GithubAuthToken:    os.Getenv("GITHUB_AUTH_TOKEN"),
+		NewRelicEnabled:       newRelicEnabled,
+		NewRelicAppName:       os.Getenv("NEWRELIC_APP_NAME"),
+		NewRelicLicenseKey:    os.Getenv("NEWRELIC_LICENSE_KEY"),
+		GithubAuthToken:       os.Getenv("GITHUB_AUTH_TOKEN"),
+		IPGeolocationApiToken: os.Getenv("IPGEOLOCATION_API_TOKEN"),
 	}
 
 	return config
