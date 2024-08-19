@@ -8,6 +8,7 @@ require (
 	github.com/newrelic/go-agent/v3 v3.29.1
 	github.com/newrelic/go-agent/v3/integrations/logcontext-v2/logWriter v1.0.1
 	github.com/newrelic/go-agent/v3/integrations/nrgin v1.2.1
+	golang.org/x/exp v0.0.0-20240808152545-0cdaa3abc0fa
 )
 
 require (

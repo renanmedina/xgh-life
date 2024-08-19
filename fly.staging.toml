@@ -1,0 +1,33 @@
+# fly.toml app configuration file generated for xgh-bot on 2024-08-17T15:24:32-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "xgh-life-staging"
+primary_region = "gru"
+
+[build]
+  builder = "paketobuildpacks/builder:base"
+  buildpacks = ["gcr.io/paketo-buildpacks/go"]
+  ignorefile = ".dockerignore"
+
+[env]
+  PORT = "8080"
+  XGH_HTTP_PORT = "8080"
+  ENVIRONMENT = "staging"
+  NEWRELIC_ENABLED = "true"
+  NEWRELIC_APP_NAME = "XGH-Bot"
+  TZ = "America/Sao_Paulo"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 512

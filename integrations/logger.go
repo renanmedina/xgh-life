@@ -3,7 +3,7 @@ package integrations
 import (
 	"log"
 
-	"github.com/renanmedina/xgh-life/configs"
+	"github.com/renanmedina/xgh-life/utils"
 )
 
 var Logger *log.Logger
@@ -13,7 +13,7 @@ func NewApplicationLogger() *log.Logger {
 		return Logger
 	}
 
-	appConfig := configs.NewApplicationConfigs()
+	appConfig := utils.NewApplicationConfigs()
 
 	Logger = log.Default()
 

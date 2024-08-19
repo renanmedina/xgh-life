@@ -1,0 +1,37 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+      - staging
+jobs:
+  deploy_prod:
+    name: Deploy Production
+    environment: production
+    runs-on: ubuntu-latest
+    concurrency: deploy-production
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy to Fly.io
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          GIN_MODE: release
+  deploy_staging:
+    name: Deploy Staging
+    environment: staging
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+    concurrency: deploy-staging
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy .toml file
+        run: cp fly.staging.toml fly.toml
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy to Fly.io
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          GIN_MODE: release

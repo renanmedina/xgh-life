@@ -24,3 +24,5 @@ builds/*
 go.work
 
 .env
+
+tmp/*

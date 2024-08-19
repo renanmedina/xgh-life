@@ -9,9 +9,9 @@ type GetAxiomUseCase struct {
 	repository AxiomsRepository
 }
 
-func NewGetAxiomUseCase() GetAxiomUseCase {
+func NewGetAxiomUseCase(language string) GetAxiomUseCase {
 	return GetAxiomUseCase{
-		repository: NewAxiomsRepository(),
+		repository: NewAxiomsRepository(language),
 	}
 }
 

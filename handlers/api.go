@@ -9,18 +9,13 @@ import (
 	"github.com/renanmedina/xgh-life/gohorse"
 )
 
-var repository gohorse.AxiomsRepository
-
-func init() {
-	repository = gohorse.NewAxiomsRepository()
-}
-
 func AxiomsListHandler(c *gin.Context) {
+	repository := gohorse.NewAxiomsRepository(c.GetString("language"))
 	c.JSON(200, repository.GetAll())
 }
 
-func fetchAxiomHandler(id string) (*gohorse.Axiom, int, error) {
-	use_case := gohorse.NewGetAxiomUseCase()
+func fetchAxiomHandler(language string, id string) (*gohorse.Axiom, int, error) {
+	use_case := gohorse.NewGetAxiomUseCase(language)
 
 	if id == "roulette" {
 		id = gohorse.RANDOM_OPTION
@@ -41,7 +36,7 @@ func fetchAxiomHandler(id string) (*gohorse.Axiom, int, error) {
 }
 
 func AxiomDetailsHandlerJson(c *gin.Context) {
-	axiom, statusCode, err := fetchAxiomHandler(c.Param("id"))
+	axiom, statusCode, err := fetchAxiomHandler(c.GetString("language"), c.Param("id"))
 
 	if err != nil {
 		c.JSON(statusCode, gin.H{"error": err.Error()})
@@ -52,7 +47,7 @@ func AxiomDetailsHandlerJson(c *gin.Context) {
 }
 
 func AxiomDetailsHandlerHtml(c *gin.Context) {
-	axiom, statusCode, err := fetchAxiomHandler(c.Param("id"))
+	axiom, statusCode, err := fetchAxiomHandler(c.GetString("language"), c.Param("id"))
 
 	if err != nil {
 		c.JSON(statusCode, gin.H{"error": err.Error()})
