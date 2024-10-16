@@ -7,6 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/assets/static/scripts/horse.js"></script>
     <script src="/assets/static/scripts/initializers.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="XGH">
     <meta property="og:url" content="https://xhg.life/axioms/{{.axiom.Number}}">
@@ -14,11 +18,18 @@
     <meta property="og:description" content="{{ .axiom.Description }}">
     <meta property="og:image" content="/assets/static/images/xgh_og_image.png">
     <meta property="twitter:card" content="/assets/static/images/xgh_og_image.png">
+    <meta name="application-name" content="xgh.life">
+    <meta name="author" content="Renan Medina">
+    <meta name="description" content="XGH é mais rápido que qualquer metodologia de desenvolvimento de software que você conhece (Vide Axioma 14).">
+    <meta name="specification" content="https://gohorse.com.br/extreme-go-horse-xgh">
+    <meta name="keywords" content="xgh,extreme go horse,go horse,go-horse,XGH,software,developer,development,gotta-go-fast,methodology,metodologia">
 
+    <title>XGH - #{{ .axiom.Number }} - {{ .axiom.Title }}</title>
     <style type="text/css">
       html, body {
         width: 100%;
         height: 100%;
+        font-family: "Roboto", sans-serif;
       }
 
       .running-horse {
@@ -45,12 +56,16 @@
     </style>
   </head>
   <body class="bg-brown" onload="initialize()">
-    <section class="flex justify-center place-items-center h-full">
+    <section class="flex justify-center place-items-center h-full flex-column">
       <div class="flex justify-center flex-column">
         <img src="/assets/static/images/xgh_icon.png" alt="xgh horse icon" class="w-32 rounded-full block place-self-center">
         <div class="mr-4 ml-6 rounded-lg bg-orange-300 p-4 block max-w-96 horse-bubble text-yellow-950">
           <h3 class="text-lg font-bold mb-4">{{ .axiom.Number}} - {{ .axiom.Title }}</h3>
           {{ .axiom.Description }}
+
+          <div class="mt-4 text-right">
+            <a href="https://gohorse.com.br/" class="text-orange-700 underline" target="_blank" alt="Original source">https://gohorse.com.br</a>
+          </div>
 
           <audio class="hidden" id="audio-autoplay-element">
             <source src="{{ .autoplayUrl }}" type="audio/mpeg">
@@ -58,5 +73,6 @@
         </div>
       </div>
     </section>
+
   </body>
 </html>
