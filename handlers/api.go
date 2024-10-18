@@ -9,6 +9,14 @@ import (
 	"github.com/renanmedina/xgh-life/gohorse"
 )
 
+// @Summary List Axioms
+// @Schemes
+// @Description returns a list of XGH methodology axioms
+// @Tags List Axioms
+// @Accept json
+// @Produce json
+// @Success 200 {array} gohorse.Axiom
+// @Router /axioms [get]
 func AxiomsListHandler(c *gin.Context) {
 	repository := gohorse.NewAxiomsRepository(c.GetString("language"))
 	c.JSON(200, repository.GetAll())
@@ -35,6 +43,16 @@ func fetchAxiomHandler(language string, id string) (*gohorse.Axiom, int, error) 
 	return &axiom, http.StatusOK, nil
 }
 
+// @Summary Get Axiom
+// @Schemes
+// @Description returns the XGH methodology axiom by its number
+// @Tags Get Axiom
+// @Accept json
+// @Produce json
+// @Success 200 {object} gohorse.Axiom
+// @Failure 404 {object} ResponseError
+// @Param axiomNumber path int true "Axiom Number"
+// @Router /axioms/{axiomNumber} [get]
 func AxiomDetailsHandlerJson(c *gin.Context) {
 	axiom, statusCode, err := fetchAxiomHandler(c.GetString("language"), c.Param("id"))
 
@@ -65,4 +83,21 @@ func AxiomDetailsHandlerHtml(c *gin.Context) {
 		"axiom":       axiom,
 		"autoplayUrl": autoplayUrl,
 	})
+}
+
+// @Summary Get Random Axiom
+// @Schemes
+// @Description returns the XGH methodology axiom randomly
+// @Tags Get Axiom
+// @Accept json
+// @Produce json
+// @Success 200 {object} gohorse.Axiom
+// @Router /random [get]
+func RandomAxiomHandlerJson(c *gin.Context) {
+	c.AddParam("id", "random")
+	AxiomDetailsHandlerJson(c)
+}
+
+type ResponseError struct {
+	Error string
 }

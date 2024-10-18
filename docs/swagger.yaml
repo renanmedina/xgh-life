@@ -1,0 +1,81 @@
+basePath: /
+definitions:
+  gohorse.Axiom:
+    properties:
+      description:
+        type: string
+      number:
+        type: integer
+      title:
+        type: string
+    type: object
+  handlers.ResponseError:
+    properties:
+      error:
+        type: string
+    type: object
+host: https://xgh.life
+info:
+  contact:
+    name: Renan Medina
+  title: XGH Life - API Docs
+  version: 1.0.0
+paths:
+  /axioms:
+    get:
+      consumes:
+      - application/json
+      description: returns a list of XGH methodology axioms
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/gohorse.Axiom'
+            type: array
+      summary: List Axioms
+      tags:
+      - List Axioms
+  /axioms/{axiomNumber}:
+    get:
+      consumes:
+      - application/json
+      description: returns the XGH methodology axiom by its number
+      parameters:
+      - description: Axiom Number
+        in: path
+        name: axiomNumber
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gohorse.Axiom'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.ResponseError'
+      summary: Get Axiom
+      tags:
+      - Get Axiom
+  /random:
+    get:
+      consumes:
+      - application/json
+      description: returns the XGH methodology axiom randomly
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gohorse.Axiom'
+      summary: Get Random Axiom
+      tags:
+      - Get Axiom
+swagger: "2.0"

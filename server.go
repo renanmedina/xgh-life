@@ -11,10 +11,13 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/newrelic/go-agent/v3/integrations/nrgin"
+	apidocs "github.com/renanmedina/xgh-life/docs"
 	"github.com/renanmedina/xgh-life/handlers"
 	"github.com/renanmedina/xgh-life/integrations"
 	"github.com/renanmedina/xgh-life/middlewares"
 	"github.com/renanmedina/xgh-life/utils"
+	swaggerfiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 var (
@@ -24,6 +27,11 @@ var (
 	templatesEmbeded embed.FS
 )
 
+// @title XGH Life - API Docs
+// @version 1.0.0
+// @contact.name Renan Medina
+// @host https://xgh.life
+// @BasePath /
 func main() {
 	gin.SetMode(gin.ReleaseMode)
 	appConfigs := utils.NewApplicationConfigs()
@@ -73,9 +81,7 @@ func configureStatic(router *gin.Engine) {
 }
 
 func configureHandlers(router *gin.Engine) {
-	router.GET("/infra/healthcheck", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"is-alive": true})
-	})
+	router.GET("/infra/healthcheck", handlers.HealthCheck)
 
 	router.GET("/", func(c *gin.Context) {
 		c.AddParam("id", "roulette")
@@ -89,10 +95,13 @@ func configureHandlers(router *gin.Engine) {
 
 	api := router.Group("/api")
 	{
+		api.GET("/random", handlers.RandomAxiomHandlerJson)
 		api.GET("/axioms", handlers.AxiomsListHandler)
 		api.GET("/axioms/:id", handlers.AxiomDetailsHandlerJson)
-	}
 
+		apidocs.SwaggerInfo.BasePath = "/api/"
+		api.GET("/docs/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	}
 	github := router.Group("/github/pull-requests")
 	{
 		github.POST("/auto-approve", handlers.GithubAutoApprovePullRequestHandler)

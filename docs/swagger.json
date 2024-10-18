@@ -1,0 +1,125 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "XGH Life - API Docs",
+        "contact": {
+            "name": "Renan Medina"
+        },
+        "version": "1.0.0"
+    },
+    "host": "https://xgh.life",
+    "basePath": "/",
+    "paths": {
+        "/axioms": {
+            "get": {
+                "description": "returns a list of XGH methodology axioms",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "List Axioms"
+                ],
+                "summary": "List Axioms",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/gohorse.Axiom"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/axioms/{axiomNumber}": {
+            "get": {
+                "description": "returns the XGH methodology axiom by its number",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Get Axiom"
+                ],
+                "summary": "Get Axiom",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Axiom Number",
+                        "name": "axiomNumber",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/gohorse.Axiom"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/random": {
+            "get": {
+                "description": "returns the XGH methodology axiom randomly",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Get Axiom"
+                ],
+                "summary": "Get Random Axiom",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/gohorse.Axiom"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "gohorse.Axiom": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.ResponseError": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
