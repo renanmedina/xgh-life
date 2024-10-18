@@ -134,7 +134,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0.0",
-	Host:             "https://xgh.life",
+	Host:             "",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "XGH Life - API Docs",

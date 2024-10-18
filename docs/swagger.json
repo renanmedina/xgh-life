@@ -7,7 +7,6 @@
         },
         "version": "1.0.0"
     },
-    "host": "https://xgh.life",
     "basePath": "/",
     "paths": {
         "/axioms": {

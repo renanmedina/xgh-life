@@ -30,7 +30,6 @@ var (
 // @title XGH Life - API Docs
 // @version 1.0.0
 // @contact.name Renan Medina
-// @host https://xgh.life
 // @BasePath /
 func main() {
 	gin.SetMode(gin.ReleaseMode)

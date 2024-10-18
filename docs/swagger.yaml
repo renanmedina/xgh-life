@@ -14,7 +14,6 @@ definitions:
       error:
         type: string
     type: object
-host: https://xgh.life
 info:
   contact:
     name: Renan Medina
