@@ -4,7 +4,7 @@ ARG PORT=8080
 FROM golang:1.23-alpine AS builder
 WORKDIR /app
 COPY . .
-RUN go build -o -ldflags '-s -w' server server.go
+RUN go build -ldflags "-s -w" -o server server.go
 
 # runtime stage
 FROM alpine:latest AS runtime
