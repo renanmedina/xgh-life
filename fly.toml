@@ -7,8 +7,8 @@ app = "xgh-bot"
 primary_region = "gru"
 
 [build]
-  builder = "paketobuildpacks/builder-jammy-buildpackless-static"
-  buildpacks = ["docker.io/paketobuildpacks/go"]
+  [build.args]
+    GO_VERSION = '1.25.7'
   ignorefile = ".dockerignore"
 
 [env]
