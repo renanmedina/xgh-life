@@ -8,7 +8,7 @@ primary_region = "gru"
 
 [build]
   builder = "paketobuildpacks/builder:base"
-  buildpacks = ["gcr.io/paketo-buildpacks/go"]
+  buildpacks = ["docker.io/paketobuildpacks/go"]
   ignorefile = ".dockerignore"
 
 [env]
