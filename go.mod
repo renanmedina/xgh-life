@@ -1,6 +1,6 @@
 module github.com/renanmedina/xgh-life
 
-go 1.22
+go 1.25.7
 
 require (
 	github.com/gin-contrib/cors v1.5.0

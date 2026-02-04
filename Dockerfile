@@ -1,7 +1,7 @@
 ## multi stage build
 ARG PORT=8080
 # builder stage
-FROM golang:1.23-alpine AS builder
+FROM golang:1.25.7-alpine AS builder
 WORKDIR /app
 COPY . .
 RUN go build -ldflags "-s -w" -o server server.go
