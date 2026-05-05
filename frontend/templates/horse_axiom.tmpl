@@ -79,7 +79,9 @@
         <h3 class="text-lg font-bold mb-4">{{ .axiom.Number}} - {{ .axiom.Title }}</h3>
         {{ .axiom.Description }}
 
-        <div class="mt-4 text-right">
+        <div class="mt-4 flex flex-col sm:flex-row sm:justify-between gap-2">
+          <a href="#" class="rounded-md shadow-xl" alt="Share axiom"
+            onclick="copyAxiomLink(event, this)" data-number="{{ .axiom.Number }}">&#128279; Compartilhar</a>
           <a href="https://gohorse.com.br/" class="text-orange-700 underline" target="_blank"
             alt="Original source">https://gohorse.com.br</a>
         </div>
@@ -91,6 +93,16 @@
     </div>
   </section>
 
+<script>
+  function copyAxiomLink(event, el) {
+    event.preventDefault();
+    const url = window.location.origin + '/' + el.dataset.number;
+    navigator.clipboard.writeText(url).then(() => {
+      el.textContent = 'Copiado!';
+      setTimeout(() => el.innerHTML = '&#128279; Compartilhar', 2000);
+    });
+  }
+</script>
 </body>
 
 </html>
