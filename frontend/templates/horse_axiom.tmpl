@@ -80,8 +80,13 @@
         {{ .axiom.Description }}
 
         <div class="mt-4 flex flex-col sm:flex-row sm:justify-between gap-2">
-          <a href="#" class="rounded-md shadow-xl" alt="Share axiom"
-            onclick="copyAxiomLink(event, this)" data-number="{{ .axiom.Number }}">&#128279; Compartilhar</a>
+          <a href="#" class="text-orange-700 inline-flex items-center gap-1" alt="Share axiom"
+            onclick="copyAxiomLink(event, this)" data-number="{{ .axiom.Number }}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+            </svg>
+            Compartilhar
+          </a>
           <a href="https://gohorse.com.br/" class="text-orange-700 underline" target="_blank"
             alt="Original source">https://gohorse.com.br</a>
         </div>
@@ -97,9 +102,10 @@
   function copyAxiomLink(event, el) {
     event.preventDefault();
     const url = window.location.origin + '/' + el.dataset.number;
+    const original = el.innerHTML;
     navigator.clipboard.writeText(url).then(() => {
       el.textContent = 'Copiado!';
-      setTimeout(() => el.innerHTML = '&#128279; Compartilhar', 2000);
+      setTimeout(() => el.innerHTML = original, 2000);
     });
   }
 </script>
