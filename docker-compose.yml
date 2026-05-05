@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM golang:1.25-alpine
+        RUN go install github.com/air-verse/air@latest
+        WORKDIR /app
+    volumes:
+      - .:/app
+      - go-pkg-cache:/root/go/pkg/mod
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    command: air
+
+volumes:
+  go-pkg-cache:
