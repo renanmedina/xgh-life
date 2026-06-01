@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-life/gohorse"
+	"github.com/renanmedina/xgh-life/translation"
 )
 
 func LanguageDiscovery() gin.HandlerFunc {
@@ -30,7 +31,7 @@ func LanguageDiscovery() gin.HandlerFunc {
 			return
 		}
 
-		context.Set("language", gohorse.DEFAULT_LANGUAGE)
+		context.Set("language", translation.DEFAULT_LANGUAGE)
 	}
 }
 

@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/renanmedina/xgh-life/gohorse"
+	"github.com/renanmedina/xgh-life/translation"
 )
 
 // @Summary List Axioms
@@ -65,7 +66,8 @@ func AxiomDetailsHandlerJson(c *gin.Context) {
 }
 
 func AxiomDetailsHandlerHtml(c *gin.Context) {
-	axiom, statusCode, err := fetchAxiomHandler(c.GetString("language"), c.Param("id"))
+	language := c.GetString("language")
+	axiom, statusCode, err := fetchAxiomHandler(language, c.Param("id"))
 
 	if err != nil {
 		c.JSON(statusCode, gin.H{"error": err.Error()})
@@ -82,6 +84,7 @@ func AxiomDetailsHandlerHtml(c *gin.Context) {
 	c.HTML(http.StatusOK, "horse_axiom.tmpl", gin.H{
 		"axiom":       axiom,
 		"autoplayUrl": autoplayUrl,
+		"footerText":  translation.Get(language, "footer_text"),
 	})
 }
 

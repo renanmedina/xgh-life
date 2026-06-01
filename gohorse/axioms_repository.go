@@ -2,6 +2,7 @@ package gohorse
 
 import (
 	"fmt"
+	"github.com/renanmedina/xgh-life/translation"
 	"math/rand"
 )
 
@@ -11,7 +12,7 @@ type AxiomsRepository struct {
 
 func NewAxiomsRepository(language string) AxiomsRepository {
 	if language == "" {
-		language = DEFAULT_LANGUAGE
+		language = translation.DEFAULT_LANGUAGE
 	}
 
 	return AxiomsRepository{

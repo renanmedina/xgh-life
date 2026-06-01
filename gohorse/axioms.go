@@ -2,8 +2,6 @@ package gohorse
 
 import "golang.org/x/exp/maps"
 
-const DEFAULT_LANGUAGE = "pt-BR"
-
 var AXIOMS = map[string]map[int]Axiom{
 	"pt-BR": {
 		1:  {1, "Pensou, não é XGH.", "XGH não pensa, faz a primeira coisa que vem à mente. Não existe segunda opção, a única opção é a mais rápida."},
